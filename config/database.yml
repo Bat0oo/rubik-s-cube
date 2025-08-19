@@ -1,5 +1,3 @@
-# config/database.yml
-
 default: &default
   adapter: sqlserver
   encoding: utf8

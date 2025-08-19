@@ -71,18 +71,26 @@ jobs:
         env:
           SA_PASSWORD: "P@ssw0rd123"
           ACCEPT_EULA: "Y"
+          MSSQL_PID: "Developer"
         ports:
           - 1433:1433
         options: >-
           --health-cmd " /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P P@ssw0rd123 -Q 'SELECT 1' || exit 1"
           --health-interval 10s
           --health-timeout 20s
-          --health-retries 20
+          --health-retries 25
 
     steps:
       - name: Install packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config google-chrome-stable
-
+     
+      - name: Install SQL Server command-line tools
+        run: |
+          curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+          curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list
+          sudo apt-get update
+          sudo ACCEPT_EULA=Y apt-get install -y mssql-tools18 unixodbc-dev
+     
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -95,6 +103,21 @@ jobs:
       - name: Make bin scripts executable
         run: chmod +x bin/*
 #
+      - name: Wait for SQL Server to be ready
+        run: |
+          export PATH="$PATH:/opt/mssql-tools18/bin"
+          echo "Waiting for SQL Server to be ready..."
+          for i in {1..30}; do
+            if sqlcmd -S localhost,1433 -U sa -P "P@ssw0rd123" -C -Q "SELECT 1" > /dev/null 2>&1; then
+              echo "SQL Server is ready!"
+              break
+            fi
+            echo "Attempt $i/30: SQL Server not ready yet, waiting 5 seconds..."
+            sleep 5
+          done
+          # Final test
+          sqlcmd -S localhost,1433 -U sa -P "P@ssw0rd123" -C -Q "SELECT 1"
+
       - name: Create DB
         run: bundle exec rails db:create db:schema:load    
 
