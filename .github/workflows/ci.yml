@@ -69,12 +69,12 @@ jobs:
       sqlserver:
         image: mcr.microsoft.com/mssql/server:2022-latest
         env:
-          SA_PASSWORD: "password123"
+          SA_PASSWORD: "P@ssw0rd123"
           ACCEPT_EULA: "Y"
         ports:
           - 1433:1433
         options: >-
-          --health-cmd " /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P password123 -Q 'SELECT 1' || exit 1"
+          --health-cmd " /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P P@ssw0rd123 -Q 'SELECT 1' || exit 1"
           --health-interval 10s
           --health-timeout 10s
           --health-retries 10
