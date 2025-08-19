@@ -76,8 +76,8 @@ jobs:
         options: >-
           --health-cmd " /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P P@ssw0rd123 -Q 'SELECT 1' || exit 1"
           --health-interval 10s
-          --health-timeout 10s
-          --health-retries 10
+          --health-timeout 20s
+          --health-retries 20
 
     steps:
       - name: Install packages
