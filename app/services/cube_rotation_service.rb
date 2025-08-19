@@ -1,5 +1,5 @@
 class CubeRotationService
-  def init(cube)
+  def initialize(cube)
     @cube = cube
   end
 
@@ -21,13 +21,13 @@ class CubeRotationService
       rotate_right_clockwise
     when "R'"
       rotate_right_counterclockwise
-    when 'T'
+    when 'U'
       rotate_top_clockwise
-    when "T'"
+    when "U'"
       rotate_top_counterclockwise
-    when 'B'
+    when 'D'
       rotate_bot_clockwise
-    when "B'"
+    when "D'"
       rotate_bot_counterclockwise
     else
       raise ArgumentError, "Invalid move: #{move}. Valid moves: F, F', B, B', L, L', R, R', U, U', D, D'"
