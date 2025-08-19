@@ -5,7 +5,7 @@ default: &default
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host: localhost
-  username: Bato 
+  username: sa 
   password: password123
 
 development:
