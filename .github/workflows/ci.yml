@@ -61,8 +61,7 @@ jobs:
         run: chmod +x bin/*
         #
       - name: Lint code for consistent style
-        run: bin/rubocop -f github
-  
+        run: bin/rubocop -f github  
 #   test:
 #     runs-on: ubuntu-latest
 #     services:
