@@ -22,7 +22,7 @@ def rotate
     render json: {
       status: 'error',
       message: e.message,
-    }, status :bad_request
+    }, status: :bad_request
   end
 end
 
