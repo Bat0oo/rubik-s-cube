@@ -8,6 +8,13 @@ class RubiksCube < ApplicationRecord
 #W-Y, R-O, B-G
 
 validates :front, :back, :left, :right, :top, :bottom, presence: true
+serialize :front, coder: YAML
+serialize :back, coder: YAML
+serialize :left, coder: YAML
+serialize :right, coder: YAML
+serialize :top, coder: YAML
+serialize :bottom, coder: YAML
+
 def self.current_cube
   first || create_solved_cube  
 end

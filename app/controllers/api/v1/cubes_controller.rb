@@ -1,5 +1,6 @@
 class Api::V1::CubesController <ApplicationController
   before_action :set_cube
+  skip_before_action :verify_authenticity_token
 
 def show
   render json: {
@@ -27,7 +28,7 @@ def rotate
 end
 
 def reset
-  @cube.reset_to_solved
+  @cube.reset_to_solved!
   
   render json: {
     status: 'succes',
