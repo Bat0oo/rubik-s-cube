@@ -11,8 +11,9 @@ end
 
 def rotate
   begin
+    move = params.fetch(:move, '').to_s
     service = CubeRotationService.new(@cube)
-    service.rotate(params[:move])
+    service.rotate(move)
 
     render json: {
       status: 'succes',

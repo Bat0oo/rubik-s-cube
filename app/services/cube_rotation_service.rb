@@ -4,6 +4,7 @@ class CubeRotationService
   end
 
   def rotate(move)
+    raise ArgumentError, "Invalid move: " if move.nil? || move.empty?
     case move.upcase
     when 'F'
       rotate_front_clockwise
