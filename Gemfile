@@ -57,7 +57,7 @@ group :development do
   gem "web-console"
   gem 'listen', '~> 3.3'
   gem 'spring'
-  gem 'rspec-rails', '~> 6.0'
+  gem 'rspec-rails', '~> 8.0'
   gem 'factory_bot_rails'
   gem 'faker'
 end
